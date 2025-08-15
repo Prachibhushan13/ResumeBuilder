@@ -1,0 +1,125 @@
+    :root{
+      --bg:#000000;          
+      --card:#97a2e4;        
+      --ink:#e8eaf6;         
+      --muted:#a9b0d0;       
+      --accent:#6c8cff;      
+      --accent-2:#38ffbd;    
+      --border:#40424a;      
+      --chip:#232845;        
+      --good:#2ecc71;        
+      --warn:#ffb74d;       
+      --bad:#ff6d6a;         
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink); background: linear-gradient(180deg, #0d1020, #0b0e1a 60%, #090c16);
+    }
+
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter: blur(8px);
+      background: rgba(15,18,32,.7); border-bottom:1px solid var(--border);
+    }
+
+    .container{ max-width:1200px; margin:0 auto; padding: 18px 20px; }
+    .app-title{ display:flex; align-items:center; gap:14px; }
+    .logo{
+      width:36px; height:36px; border-radius:10px; background: radial-gradient(circle at 30% 30%, var(--accent), transparent 60%),
+                radial-gradient(circle at 70% 70%, var(--accent-2), transparent 60%),
+                linear-gradient(135deg, #1b1f36, #0f1220);
+      box-shadow: var(--shadow);
+    }
+    .app-title h1{ font-size: 1.25rem; margin:0; letter-spacing:.3px; }
+    .sub{ color: var(--muted); font-size:.9rem; }
+
+    .progress-wrap{ margin-top:12px; }
+    .progress{ height:10px; width:100%; background:#0b0e1b; border:1px solid var(--border); border-radius:999px; overflow:hidden; }
+    .bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--bad), var(--warn), var(--good)); transition: width .4s ease; }
+    .progress-meta{ display:flex; justify-content:space-between; align-items:center; margin-top:6px; color:var(--muted); font-size:.85rem; }
+
+    .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:22px; align-items:start; padding: 18px 20px 32px; }
+    .card{ background: linear-gradient(180deg, rgba(108,140,255,0.06), rgba(0,0,0,0)); border:1px solid var(--border); border-radius:16px; box-shadow: var(--shadow); }
+    .card .card-header{ padding:16px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .card .card-header h2{ margin:0; font-size:1.05rem; letter-spacing:.2px; }
+    .card .card-body{ padding:16px 18px 20px; }
+
+    form label{ display:block; font-weight:600; margin:12px 0 8px; color:#d6daf9; }
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="tel"],
+    form textarea{
+      width:100%; background:#0c1022; color:var(--ink);
+      border:1px solid var(--border); border-radius:12px; padding:12px 14px; outline:none;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      box-shadow: inset 0 0 0 rgba(0,0,0,0);
+    }
+    form textarea{ min-height:100px; resize:vertical; }
+    form input:focus, form textarea:focus{ border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,140,255,.22); transform: translateY(-1px); }
+
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+
+    .btn{ appearance:none; border:none; cursor:pointer; background: linear-gradient(135deg, #5f7dff, #54e6c1);
+      color:#091023; font-weight:700; padding:10px 14px; border-radius:12px; transition: transform .15s ease, filter .2s ease; }
+    .btn:hover{ filter: brightness(1.08); transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0); }
+    .btn.secondary{ background: #0c1022; color: var(--ink); border:1px solid var(--border); }
+
+    .inline-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+
+    .muted{ color:var(--muted); font-size:.9rem; }
+    .hr{ height:1px; background:var(--border); margin:14px 0; }
+
+    .repeater{ display:flex; flex-direction:column; gap:14px; }
+    .block{ background:#0c1022; border:1px dashed var(--border); border-radius:12px; padding:12px; transition: border-color .2s ease, background .2s ease; }
+    .block:hover{ border-color: var(--accent); }
+
+    .chip-input{ display:flex; gap:8px; flex-wrap:wrap; background:#0c1022; border:1px solid var(--border); border-radius:12px; padding:8px; }
+    .chip{ display:inline-flex; align-items:center; gap:8px; background:var(--chip); color:#dbe1ff; border:1px solid var(--border); border-radius:999px; padding:6px 10px; font-size:.9rem; opacity:0; transform:translateY(6px); animation: pop .3s forwards; }
+    .chip button{ all:unset; cursor:pointer; padding:0 4px; font-weight:800; color:#b9c1f9; }
+    .chip-input input{ flex:1; min-width:140px; background:transparent; border:none; outline:none; color:var(--ink); padding:6px; }
+
+    @keyframes pop{ to{ opacity:1; transform:translateY(0);} }
+
+    .resume{ background:#ffffff; color:#1d2636; border-radius:16px; overflow:hidden; border:1px solid #e5e7f1; }
+    .resume-header{ background:linear-gradient(160deg, #5f7dff 0%, #5bd7bd 100%); color:#0a1022; padding:22px; display:flex; align-items:center; justify-content:space-between; }
+    .resume-name{ font-size:1.6rem; font-weight:800; letter-spacing:.3px; }
+    .resume-contact{ text-align:right; font-size:.95rem; }
+    .resume-contact a{ color:#0a1022; text-decoration:none; }
+
+    .resume-body{ padding:20px; }
+    .section{ margin-bottom:18px; transition: all .3s ease; }
+    .section h3{ margin:.2rem 0 .6rem; border-bottom:2px solid #eef1fb; padding-bottom:6px; font-size:1.05rem; }
+    .edu-item, .exp-item{ padding:10px 0; border-bottom:1px dashed #e9ecf8; animation: fadeIn .35s ease both; }
+    .edu-item:last-child, .exp-item:last-child{ border-bottom:none; }
+    .title{ font-weight:700; }
+    .meta{ color:#4b5567; font-size:.92rem; }
+    .bullets{ list-style: disc; margin:.4rem 0 .2rem 1.1rem; }
+
+    @keyframes fadeIn{ from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+
+    
+    .right{ text-align:right; }
+
+    
+    @media (max-width: 1024px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px){
+      .resume-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .resume-contact{ text-align:left; }
+      .resume-name{ font-size:1.35rem; }
+      .section h3{ font-size:1rem; }
+      body{ font-size:15px; }
+    }
+
+    
+    @media print{
+      body{ background:#fff; }
+      header, .form-card, .sub, .progress-wrap{ display:none !important; }
+      .grid{ grid-template-columns: 1fr; padding:0; }
+      .resume{ border:none; border-radius:0; box-shadow:none; }
+    }

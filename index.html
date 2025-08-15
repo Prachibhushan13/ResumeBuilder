@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+    <div class="container">
+      <div class="app-title">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Interactive Resume Builder</h1>
+          <div class="sub">Fill the form — see your resume update in real time. Print to PDF when ready.</div>
+        </div>
+      </div>
+      <div class="progress-wrap" aria-live="polite">
+        <div class="progress" aria-hidden="true"><div id="progressBar" class="bar"></div></div>
+        <div class="progress-meta"><span>Completion</span><span id="progressPct">0%</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container grid">
+    <section class="card form-card" aria-label="Resume form">
+      <div class="card-header">
+        <h2>Enter your details</h2>
+        <div class="inline-actions">
+          <button id="btnClear" class="btn secondary" type="button" title="Clear form">Clear</button>
+          <button id="btnPrint" class="btn" type="button" title="Download PDF">Download PDF</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <form id="resumeForm" autocomplete="on">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="e.g., Priya Chakarborty" required />
+
+          <div class="row">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="priya@example.com" />
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="+91 987xxxxxxxx" />
+            </div>
+          </div>
+
+          <label for="summary">Profile Summary</label>
+          <textarea id="summary" name="summary" placeholder="Brief overview: strengths, goals, and impact."></textarea>
+
+          <div class="hr"></div>
+
+          <h3>Education</h3>
+          <div id="eduList" class="repeater" aria-live="polite"></div>
+          <div class="inline-actions">
+            <button class="btn" type="button" id="addEdu">+ Add Education</button>
+          </div>
+
+          <div class="hr"></div>
+
+          <h3>Skills</h3>
+          <div class="chip-input" id="skillInputWrap">
+            <input id="skillInput" type="text" placeholder="Type a skill and press Enter" aria-label="Add skill" />
+          </div>
+          <div class="inline-actions muted">Tip: add as many as you like.</div>
+
+          <div class="hr"></div>
+
+          <h3>Experience</h3>
+          <div id="expList" class="repeater" aria-live="polite"></div>
+          <div class="inline-actions">
+            <button class="btn" type="button" id="addExp">+ Add Experience</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Resume preview">
+      <div class="card-header">
+        <h2>Live Preview</h2>
+      </div>
+      <div class="card-body">
+        <article id="resume" class="resume" aria-live="polite">
+          <div class="resume-header">
+            <div class="resume-name" id="rName">Your Name</div>
+            <div class="resume-contact" id="rContact">
+              <div><a href="#" id="rEmail">email@example.com</a></div>
+              <div id="rPhone">+91 00000 00000</div>
+            </div>
+          </div>
+          <div class="resume-body">
+            <section class="section" id="rSummarySec" style="display:none;">
+              <h3>Profile</h3>
+              <div id="rSummary" class="meta"></div>
+            </section>
+
+            <section class="section" id="rSkillsSec" style="display:none;">
+              <h3>Skills</h3>
+              <div id="rSkills"></div>
+            </section>
+
+            <section class="section" id="rEduSec" style="display:none;">
+              <h3>Education</h3>
+              <div id="rEdu"></div>
+            </section>
+
+            <section class="section" id="rExpSec" style="display:none;">
+              <h3>Experience</h3>
+              <div id="rExp"></div>
+            </section>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <template id="tplEdu">
+    <div class="block edu-block">
+      <div class="row">
+        <div>
+          <label>Institution</label>
+          <input type="text" name="institution" placeholder="e.g., Patna Women's College" />
+        </div>
+        <div>
+          <label>Degree / Program</label>
+          <input type="text" name="degree" placeholder="e.g., B.Sc. (Computer Science)" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Start – End</label>
+          <input type="text" name="years" placeholder="2022 – 2025" />
+        </div>
+        <div>
+          <label>Score / CGPA (optional)</label>
+          <input type="text" name="score" placeholder="8.7 CGPA" />
+        </div>
+      </div>
+      <div class="inline-actions">
+        <button type="button" class="btn secondary btn-del">Remove</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="tplExp">
+    <div class="block exp-block">
+      <div class="row">
+        <div>
+          <label>Company</label>
+          <input type="text" name="company" placeholder="e.g., Acme Pvt Ltd" />
+        </div>
+        <div>
+          <label>Role</label>
+          <input type="text" name="role" placeholder="e.g., Frontend Intern" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Start - End</label>
+          <input type="text" name="duration" placeholder="Jun 2024 - Aug 2024" />
+        </div>
+        <div>
+          <label>Location (optional)</label>
+          <input type="text" name="location" placeholder="Remote / Patna, IN" />
+        </div>
+      </div>
+      <label>Highlights (one per line)</label>
+      <textarea name="highlights" placeholder="Built feature X\nImproved Y by 25%\nCollaborated with Z"></textarea>
+      <div class="inline-actions">
+        <button type="button" class="btn secondary btn-del">Remove</button>
+      </div>
+    </div>
+  </template>
+</body>
+</html>
